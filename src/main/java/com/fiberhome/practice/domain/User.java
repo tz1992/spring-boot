@@ -3,10 +3,7 @@ package com.fiberhome.practice.domain;
 public class User {
 private Integer id;
 private String name;
-public User(int id, String name) {
-	this.id=id;
-	this.name=name;
-}
+
 public Integer getId() {
 	return id;
 }

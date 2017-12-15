@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fiberhome.practice.dao.UserDao">
+
+	<resultMap type="com.fiberhome.practice.domain.User" id="userMap">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+
+	<select id="getUser" resultMap="userMap">
+		select * from practice_user
+
+	</select>
+
+	<select id="getUserById" resultType="com.fiberhome.practice.domain.User">
+
+		select * from practice_user t
+		where t.id=#{id}
+	</select>
+	<select id="getUserByName" resultType="com.fiberhome.practice.domain.User">
+
+		select * from practice_user t
+		where t.name=#{name}
+	</select>
+	
+	<insert id="insertUser">
+	insert into practice_user (id,name)
+	values(#{id},#{name})
+	
+	</insert>
+
+</mapper>
