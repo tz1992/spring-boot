@@ -8,7 +8,7 @@
 		<result column="name" jdbcType="VARCHAR" property="name" />
 	</resultMap>
 
-	<select id="getUser" resultMap="userMap">
+	<select id="getUser" resultType="com.fiberhome.practice.domain.User">
 		select * from practice_user
 
 	</select>
