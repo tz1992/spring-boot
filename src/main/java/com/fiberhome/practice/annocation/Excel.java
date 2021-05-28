@@ -32,6 +32,9 @@ public @interface Excel
      */
     public abstract boolean required() default false;
 
+
+    public abstract int col() default 0;
+
     /**
      * 设置只能选择不能输入的列内容.
      */

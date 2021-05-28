@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -30,13 +31,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 
-public class ExcelUtils {
+public class ExcelUtil {
 
-    private final static Logger log = LoggerFactory.getLogger(ExcelUtils.class);
+    private final static Logger log = LoggerFactory.getLogger(ExcelUtil.class);
 
     private final static String EXCEL2003 = "xls";
     private final static String EXCEL2007 = "xlsx";
@@ -330,4 +332,77 @@ public class ExcelUtils {
             e.printStackTrace();
         }
     }
+
+
+
+    public void insertData(List<T> list, Class<T> clazz) throws Exception {
+        Field[] allFields = clazz.getDeclaredFields();
+        List<Field> fields = new ArrayList<Field>();
+        int success=0;
+        int handled = 0;
+        // 得到所有field并存放到一个list中.
+        for (Field field : allFields) {
+            for (int i = 0; i < 1; i++) {
+                // 设置实体类私有属性可访问
+                field.setAccessible(true);
+                Object object = field.get(list.get(0));
+                if (field.isAnnotationPresent(Excel.class)) {
+                    fields.add(field);
+                }
+            }
+        }
+
+        for (T t : list) {
+            handled++;
+            boolean flag = true;
+            String error = "";
+            for (int i = 0; i < fields.size(); i++) {
+                // 获得field.
+                Field field = fields.get(i);
+                // 设置实体类私有属性可访问
+                field.setAccessible(true);
+                Excel attr = field.getAnnotation(Excel.class);
+                if (String.valueOf(field.get(t)).equals("null") || String.valueOf(field.get(t)).isEmpty()) {
+                    //为空则校验必填项
+                    if (attr.required()) {
+                        flag=false;
+                        error+="第" + (i+1) + "列\""+attr.name()+"\"字段值为空.";
+                    }
+                }else{
+                    //不为空则校验字典项
+                    if (attr.prompt() != null && !"".equals(attr.prompt())) {
+                        String id = getMyDictIdByName(attr.prompt(),
+                                String.valueOf(field.get(t)));
+                        if (id == null) {
+                            flag=false;
+                            error+="第" + (i+1) + "列\""+attr.name()+"\"字典项不存在.";
+
+                        }
+                    }
+                }
+            }
+            //新建一个实体m 用于检测和转化，这要导出错误数据时 t里面的字典项还是汉字
+            T m =(T) clazz.newInstance();
+            BeanUtils.copyProperties(m,t);
+
+
+
+                insertOrUpdate(m);
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+       public  String getMyDictIdByName(String lookupCode,String value){
+
+         return  null;
+
+       }
 }
