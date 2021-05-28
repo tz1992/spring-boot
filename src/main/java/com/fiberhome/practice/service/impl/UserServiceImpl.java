@@ -15,7 +15,6 @@ private UserDao dao;
 
 	@Override
 	public List<User> getUser() {
-		// TODO Auto-generated method stub
 		return  dao.getUser();
 	}
 
@@ -27,14 +26,12 @@ private UserDao dao;
 
 	@Override
 	public User getUserById(Integer id) {
-		// TODO Auto-generated method stub
 		return dao.getUserById(id);
 	}
 
 	@Override
 	public User getUserByName(String name) {
 		System.out.println(name);
-		// TODO Auto-generated method stub
 		return dao.getUserByName(name);
 	
 	}
