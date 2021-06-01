@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.servlet.http.HttpServletResponse;
 import com.fiberhome.practice.annocation.Excel;
+import com.fiberhome.practice.annocation.TableInfos;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,9 +44,10 @@ public class ExcelUtil {
     private final static String EXCEL2003 = "xls";
     private final static String EXCEL2007 = "xlsx";
 
-    public static <T> List<T> readExcel(String path, Class<T> cls,MultipartFile file){
+    public static <T> List<T> readExcel(Class<T> cls,MultipartFile file){
 
         String fileName = file.getOriginalFilename();
+
         if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
             log.error("上传文件格式不正确");
         }
@@ -384,11 +386,6 @@ public class ExcelUtil {
             //新建一个实体m 用于检测和转化，这要导出错误数据时 t里面的字典项还是汉字
             T m =(T) clazz.newInstance();
             BeanUtils.copyProperties(m,t);
-
-
-
-                insertOrUpdate(m);
-
 
         }
 
