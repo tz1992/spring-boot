@@ -69,7 +69,7 @@ public class ExcelUtil {
                         field -> {
                             Excel annotation = field.getAnnotation(Excel.class);
                             if (annotation != null) {
-                                String value = annotation.value();
+                                String value = annotation.col()+"";
                                 if (value==null) {
                                     return;//return起到的作用和continue是相同的 语法
                                 }
@@ -92,10 +92,8 @@ public class ExcelUtil {
                     //首行  提取注解
                     if (firstRow) {
                         for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
-                            Cell cell = row.getCell(j);
-                            String cellValue = getCellValue(cell);
-                            if (classMap.containsKey(cellValue)) {
-                                reflectionMap.put(j, classMap.get(cellValue));
+                            if (classMap.containsKey(j+"")) {
+                                reflectionMap.put(j, classMap.get(j+""));
                             }
                         }
                         firstRow = false;
@@ -226,7 +224,7 @@ public class ExcelUtil {
         List<Field> fieldList = Arrays.stream(fields)
                 .filter(field -> {
                     Excel annotation = field.getAnnotation(Excel.class);
-                    if (annotation != null && annotation.col() > 0) {
+                    if (annotation != null && annotation.col() >= 0) {
                         field.setAccessible(true);
                         return true;
                     }
@@ -245,15 +243,14 @@ public class ExcelUtil {
         AtomicInteger ai = new AtomicInteger();
         {
             Row row = sheet.createRow(ai.getAndIncrement());
-            AtomicInteger aj = new AtomicInteger();
             //写入头部
             fieldList.forEach(field -> {
                 Excel annotation = field.getAnnotation(Excel.class);
                 String columnName = "";
                 if (annotation != null) {
-                    columnName = annotation.value();
+                    columnName = annotation.name();
                 }
-                Cell cell = row.createCell(aj.getAndIncrement());
+                Cell cell = row.createCell(annotation.col());
 
                 CellStyle cellStyle = wb.createCellStyle();
                 cellStyle.setFillForegroundColor(IndexedColors.WHITE.getIndex());

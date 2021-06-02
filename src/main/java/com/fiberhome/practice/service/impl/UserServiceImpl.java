@@ -11,7 +11,7 @@ import com.fiberhome.practice.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-private UserDao dao;
+    private UserDao dao;
 
 	@Override
 	public List<User> getUser() {

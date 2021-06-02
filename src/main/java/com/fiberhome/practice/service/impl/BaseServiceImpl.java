@@ -24,7 +24,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	}
 
 
-
 	@Override
 	public T get(String id) {
 		return this.getDao().get(id);

@@ -27,4 +27,13 @@ mybatis:
   mapper-locations: classpath:com/fiberhome/practice/dao/*.xml
   type-aliases-package: com.fiberhome.practice.domain
   check-config-location: true
-  config-location: classpath:mybatis-config.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+logging:
+  level:
+    com:
+      fiberhome:
+        practice:
+         dao: debug

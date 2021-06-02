@@ -11,20 +11,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface TableInfos {
 	/**
-	 * 访问数据源
-	 */
-	String title() default ""; 
-	
-	/**
-	 * 访问主键名
-	 */
-	String id() default "";
-	
-	/**
-	 * 访问主键别名
-	 */
-	String idVal() default "";
-	/**
 	 * 查询数据库所用到的类
 	 */
 	Class<?> serviceClass() default BaseService.class;

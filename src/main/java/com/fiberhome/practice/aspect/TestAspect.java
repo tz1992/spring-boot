@@ -22,7 +22,7 @@ public class TestAspect {
     }
 
 
-    @Around("OperatorPoint()")
+//    @Around("OperatorPoint()")
     public Object aroundOperator(ProceedingJoinPoint point) {
         Object result=null;
         try {

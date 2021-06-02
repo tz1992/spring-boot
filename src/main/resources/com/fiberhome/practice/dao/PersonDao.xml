@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fiberhome.practice.dao.PersonDao">
+
+	
+	<insert id="insert" parameterType="com.fiberhome.practice.domain.PersonInfo">
+	insert into t_person (id,id_number,name,id_type,nation,nationality,sex)
+	values( uuid(),#{idNumber},#{name},#{idType},#{nation},#{nationality},#{sex})
+	
+	</insert>
+
+	<select id="selectBatch" resultType="com.fiberhome.practice.domain.PersonInfo">
+		<if test="ids!=null and ids !=''">
+			SELECT  *
+			FROM t_person
+			where id  in
+			<foreach collection="ids" item="id" index="no" open="("
+					 separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+	</select>
+
+</mapper>
