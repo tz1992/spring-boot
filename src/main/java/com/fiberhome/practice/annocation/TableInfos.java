@@ -9,6 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Inherited
 public @interface TableInfos {
 	/**
 	 * 查询数据库所用到的类

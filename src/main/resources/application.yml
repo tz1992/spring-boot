@@ -21,7 +21,6 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
-
         
 mybatis:
   mapper-locations: classpath:com/fiberhome/practice/dao/*.xml
@@ -37,3 +36,25 @@ logging:
       fiberhome:
         practice:
          dao: debug
+server:
+  port: 55555
+
+socketIo:
+  #地址
+  host: localhost
+  #端口
+  port: 18095
+  # 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器
+  maxFramePayloadLength: 1048576
+  # 设置http交互最大内容长度
+  maxHttpContentLength: 1048576
+  # socket连接数大小（如只监听一个端口boss线程组为1即可）
+  bossCount: 1
+  workCount: 9999
+  allowCustomRequests: true
+  # 协议升级超时时间（毫秒），默认10秒。HTTP握手升级为ws协议超时时间
+  upgradeTimeout: 15000
+  # Ping消息超时时间（毫秒），默认30秒，这个时间间隔内没有接收到心跳消息就会发送超时事件
+  pingTimeout: 30000
+  # Ping消息间隔（毫秒），默认25秒。客户端向服务器发送一条心跳消息间隔
+  pingInterval: 5000

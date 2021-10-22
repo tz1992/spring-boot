@@ -3,11 +3,7 @@ package com.fiberhome.practice.annocation;
 
 import java.lang.annotation.*;
 
-/**
- * 自定义导出Excel数据注解
- * 
- * @author ruoyi
- */
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Inherited

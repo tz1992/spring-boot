@@ -51,7 +51,7 @@ public class ExcelUtil {
         if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
             log.error("上传文件格式不正确");
         }
-        List<T> dataList = new ArrayList<>();
+        List<T> dataList = new ArrayList<T>();
         Workbook workbook = null;
         try {
             InputStream is = file.getInputStream();
