@@ -15,9 +15,6 @@ import java.io.UnsupportedEncodingException;
 public class MainApplication {
 public static void main(String[] args)  {
 	SpringApplication.run(MainApplication.class, args);
-	String str="admin123";
-	String real=DigestUtils.md5DigestAsHex(str.getBytes());
-	System.out.println(real);
 
 }
 }
